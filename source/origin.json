@@ -1,0 +1,9 @@
+{
+  "id": "3699695204",
+  "name": "the-slenderman",
+  "title": "[PILL PACK] The Slenderman",
+  "author": "Nick Vogel",
+  "status": "pending_download",
+  "steamcmd_download_completed": false,
+  "reason": "SteamCMD bootstrap failed: execution sandbox network disabled; no original GMA installed."
+}
