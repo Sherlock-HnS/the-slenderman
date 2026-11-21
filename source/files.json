@@ -1,0 +1,320 @@
+[
+  {
+    "path": "lua/autorun/include/slenderman_gentoi_pill.lua",
+    "size": 93730,
+    "crc": 896380771,
+    "sha256": "dc4b3d0fbc0f5530d941c9205b19d631a61d3fcb944d80fa6245ccd5b8e6f0e0"
+  },
+  {
+    "path": "lua/autorun/slenderman_gentoi_start.lua",
+    "size": 41060,
+    "crc": 1111912383,
+    "sha256": "2f5fd2af6830923b45cc7eeaf878c9c99a3028e732f7c73e1bed63904d8f6467"
+  },
+  {
+    "path": "lua/weapons/viewmodelsetp_slenderman.lua",
+    "size": 3250,
+    "crc": 3661138997,
+    "sha256": "2e591ceae8de35592b9ed9d33dadae11ed6455ed9ad4e9ff057048a98aabbebc"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/accbake.vmt",
+    "size": 430,
+    "crc": 3865133797,
+    "sha256": "c96e97c41c9f04e0e8eaaf88767c4ce66a488226df2a4abea3f566dedf4b4401"
+  },
+  {
+    "path": "materials/gentoi_slendermanicon/fadeoutaz.png",
+    "size": 138196,
+    "crc": 162843565,
+    "sha256": "da7cc45338b2cf57ad647b6009ade9eed485b81745c2335405ddae3d9c5cc9a0"
+  },
+  {
+    "path": "materials/gentoi_slendermanicon/slender_madnessmeter.png",
+    "size": 504134,
+    "crc": 1078046047,
+    "sha256": "51e26059d4cb4d899970d0b4c5946c83b927f012a2228031750d7e38a2f85d28"
+  },
+  {
+    "path": "materials/gentoi_slendermanicon/space.png",
+    "size": 62221,
+    "crc": 3634104593,
+    "sha256": "fdd05d043216b7103cc9d26de2849dfe1269735159ef15c480e44f294d0f1e97"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/shirtbake.vmt",
+    "size": 433,
+    "crc": 3605959383,
+    "sha256": "a67c175dc77e8299f64182915b5f4c379d02fb7e756412eb755a3082c2e260cd"
+  },
+  {
+    "path": "materials/gentoi_slendermanicon/slender_lunacygrasp.png",
+    "size": 772169,
+    "crc": 4254900394,
+    "sha256": "bed017e036e0476d6d92b5c5bd5ffda6fa754aefffa481b4ae99796773c29f14"
+  },
+  {
+    "path": "materials/gentoi_slendermanicon/slender_spacepress.png",
+    "size": 481005,
+    "crc": 2708393974,
+    "sha256": "8dc0d58026ce23c2944112166616dca0ba587999021a861019ff2d116b214280"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/shoesbake.vmt",
+    "size": 434,
+    "crc": 1780729311,
+    "sha256": "5e95f87cd849273bc3b2a6db0754461190d6a5977e318387c1fbf6fd7d3f471d"
+  },
+  {
+    "path": "materials/gentoi_slendermanicon/slender_struggleminigame.png",
+    "size": 829819,
+    "crc": 3355159823,
+    "sha256": "6755d4dff9f3919437e6bac324d6a1bae5ede0d27293eaef5488fda760838211"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/skinbake.vmt",
+    "size": 431,
+    "crc": 1204785474,
+    "sha256": "e1b60445dc73a78c12e439e3b317367aa5fe9fb970a89d0e63d134be6cef0349"
+  },
+  {
+    "path": "materials/gentoi_slendermanicon/slender_supernaturalphaseactive.png",
+    "size": 1077847,
+    "crc": 3455364479,
+    "sha256": "bc432e3a4875eedf3fe094dd9f5a23315c16bbf1048df9601b6598ac0d6d5a60"
+  },
+  {
+    "path": "materials/gentoi_slendermanicon/slender_supernaturalphase.png",
+    "size": 1060991,
+    "crc": 3530048116,
+    "sha256": "fc902d49302501a498b917cf7a2d56b13b4322ee827c6b0b3a7c1b2191edd89e"
+  },
+  {
+    "path": "materials/gentoi_slendermanicon/slender_spacenonpress.png",
+    "size": 567384,
+    "crc": 3153809490,
+    "sha256": "4b00a7bc0c405f180d7f518ab9a148910b26eadcc604b681d93d00f19d1c0c4a"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/suitbaked.vmt",
+    "size": 431,
+    "crc": 3831256831,
+    "sha256": "71cbf12d470bb78d37729a7ba8e4a800e53921deb7357dee1239a2b7bd413c1c"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/accdiff.vtf",
+    "size": 1398352,
+    "crc": 1075229478,
+    "sha256": "24e211f9414a49e23129d43deceff4bbe00aeedabb6793b579b762b34387dce5"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/shoesbake1.vtf",
+    "size": 1398352,
+    "crc": 2011784937,
+    "sha256": "ea2ed09c1228255928e2d56cfda590de58b9c76acbfe08db951fb1c44f8c967f"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical1.dx90.vtx",
+    "size": 22154,
+    "crc": 590641978,
+    "sha256": "9508f8deb6af9a69ab38df93ed77746a6b5af60393d8bb8fe47143e37d30b0c9"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/shoesnormal.vtf",
+    "size": 1398352,
+    "crc": 1418253006,
+    "sha256": "f220887550aac8ff9a70f511845854ddcddad2d5bf97c52dede3a51b5c1f735e"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/accnormal1.vtf",
+    "size": 1398352,
+    "crc": 538888784,
+    "sha256": "af2b6d897dd54a6b44a25a88eda2e7aab19ecbcb9e22eeee110e90ff8d73d173"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/shirtdiff.vtf",
+    "size": 5592656,
+    "crc": 2108590545,
+    "sha256": "1fc5f48579e10d2f7aea1265791743d7fccd49347e54b17034e14fbf88cd39b8"
+  },
+  {
+    "path": "materials/pills/pill_slenderman_gentoi.png",
+    "size": 1891638,
+    "crc": 429849184,
+    "sha256": "bed59b06a50fb981a882c9c16f7e577c8b6c485e9ff79c809d812c8cfb6e5b68"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical1.mdl",
+    "size": 3964,
+    "crc": 1372678344,
+    "sha256": "5c233fb37a8c0743966459b9936288e8e12b8067b920c07a6f6c86aadb674d67"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical1.phy",
+    "size": 3126,
+    "crc": 1199287263,
+    "sha256": "148e56e79050d563bb8c1c922dc91d30ade915d8e1a369cede9516ccad566395"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical2.mdl",
+    "size": 3964,
+    "crc": 3481425569,
+    "sha256": "ce76a31edecaf2dce0484dd096c7b788a39eec3755b7dcf5bde69f2e3fab2af0"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical2.phy",
+    "size": 3126,
+    "crc": 3368239522,
+    "sha256": "ac0ad2f66cea7335d5dc9d0cd90ac4fd63bf98a97f454c2e9a17db2a44440ba7"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical2.dx90.vtx",
+    "size": 24278,
+    "crc": 3403969651,
+    "sha256": "f4c730f68eadea0975bbb2341ee0d1386d11e0bd76639118db0567b304b7deae"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical2.vvd",
+    "size": 79744,
+    "crc": 1790422549,
+    "sha256": "284d4205692c5b22878fdaa469b611aeb6a25e33a3b90b14aba489ce22510986"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical1.vvd",
+    "size": 72832,
+    "crc": 1438531825,
+    "sha256": "405475c05870fb648673ab0c29a5d9db11bcaef19ab56ca730cabc25ce3461a6"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical3.mdl",
+    "size": 3964,
+    "crc": 475299682,
+    "sha256": "920883d720529f8fe173f6277919a31aeaf569d126cccefdf0bfacb61aa42025"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical3.dx90.vtx",
+    "size": 13187,
+    "crc": 3497445488,
+    "sha256": "3ac69b7c60ee0b341e5f64e0a73ce3afa3b203bf371380083619757427a53066"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical3.phy",
+    "size": 3126,
+    "crc": 3566454222,
+    "sha256": "0a3c1c24d1fa3803ad1d3a28f590e37b9bc5464e575a9bf05238d18bf4b0ade1"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical3.vvd",
+    "size": 43200,
+    "crc": 3545514118,
+    "sha256": "1eb9625eea7830cb3b3e9afff6fe4224f6bf023e8b9b6f0c0fe212cb2d4594f6"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical4.mdl",
+    "size": 3964,
+    "crc": 1847394641,
+    "sha256": "9362ad5ae12938f65efbbd49701c6824aec60d2f39ddc9e4c85f839793b4e36a"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/suitnormal.vtf",
+    "size": 5592656,
+    "crc": 3766761461,
+    "sha256": "905d62b9de3016c33441b5e2c4c9a5e7340d994f3631db78455b544f45e9c81b"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical4.phy",
+    "size": 3126,
+    "crc": 161771669,
+    "sha256": "2e7f61484b96b39580ff759d162979af660d1b876162a62e50466fff33c447d3"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical4.vvd",
+    "size": 64768,
+    "crc": 2898346274,
+    "sha256": "8c5f195da85b28ca5ff6e188a9b3c10b4c1cc7be8707d77d949214386244fadb"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/shirtnormal.vtf",
+    "size": 5592656,
+    "crc": 472498366,
+    "sha256": "b0dc1069829d364668186c2fb16e7f872651bf06cc341f21dbc665addb73f4c0"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman/tentical4.dx90.vtx",
+    "size": 19676,
+    "crc": 231158331,
+    "sha256": "187ef3282e10d28c05089af4af4c33d60d68b1ddd2e6850106b02ac1dc6ed241"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/skinnormal.vtf",
+    "size": 5592656,
+    "crc": 1211465982,
+    "sha256": "f5e01b5b89a8f91803dc7156b6b32ac00ff9ba088fc20b22c179d0383332a381"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman.mdl",
+    "size": 521676,
+    "crc": 1051676777,
+    "sha256": "22ea5097ecb30f3a30956bac59e5dca6f55ffcf9c517247b44f8157fba3d17db"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/skinbake.vtf",
+    "size": 5592656,
+    "crc": 1378064073,
+    "sha256": "f6b3c065a4095ec9d57b9d67811660e65097a6aa7b45161826e62680ae9b9305"
+  },
+  {
+    "path": "sound/gentoi/slenderman/madnessbeginning.wav",
+    "size": 709716,
+    "crc": 343699604,
+    "sha256": "88b38c11e29f8fc6400d946ce3c5597d90fc72d0e5a211f5a12ff4ee5db76d4e"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman.vvd",
+    "size": 986432,
+    "crc": 3120122251,
+    "sha256": "0e86f38b4e295c8189c96a8fc848b39102dab978aaaf3ed6cef5b70e4477e7d4"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman.phy",
+    "size": 535609,
+    "crc": 2854385099,
+    "sha256": "f6f65e4b2396c89c435944ed5cb43152b0cd7b682b6af31d4c36372368e657f7"
+  },
+  {
+    "path": "sound/gentoi/slenderman/slenderkill.wav",
+    "size": 1077326,
+    "crc": 3530429235,
+    "sha256": "7ae6ccc6552cd9923fa0f5e33e2ce990bcf5edea8092387a94bc46e3ae6353ea"
+  },
+  {
+    "path": "models/gentoi/anologhorror/slenderman.dx90.vtx",
+    "size": 281753,
+    "crc": 2410467119,
+    "sha256": "afa9041ebaf15462ddfbf8948af4a3400a65f2069d3ad61c200d059bbdc8c950"
+  },
+  {
+    "path": "sound/gentoi/slenderman/slender jumpscare sound.wav",
+    "size": 1237070,
+    "crc": 874910156,
+    "sha256": "dd0d0a0f3a41e91d51c7a49aff01aa6a85ed0e7e98032e595c716bce49aa3f09"
+  },
+  {
+    "path": "sound/gentoi/slenderman/madnessloop.wav",
+    "size": 1700504,
+    "crc": 702188738,
+    "sha256": "4394d7445e24f3eeec2ee8be5a5b3a71a360246b7a662b0035a6d47675be97c9"
+  },
+  {
+    "path": "materials/models/gentoi/anologhorror/slenderman/suitdiff.vtf",
+    "size": 5592656,
+    "crc": 3229982487,
+    "sha256": "83a069e4cb6919c4c58073e76fb418b44f26ab87dcd97df7c47dccbd03fdc6bb"
+  },
+  {
+    "path": "sound/gentoi/slenderman/slender ambience1.wav",
+    "size": 21201048,
+    "crc": 2617544038,
+    "sha256": "f99037209a8383b720853c34e815a54829da4ed6d0f4b1bd19b39aeb398ad2af"
+  }
+]
