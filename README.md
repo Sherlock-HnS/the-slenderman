@@ -1,4 +1,4 @@
-[PILL PACK] The Slenderman
+# [PILL PACK] The Slenderman
 
 ![Workshop preview](workshop-preview.jpg)
 
