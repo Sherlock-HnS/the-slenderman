@@ -71,9 +71,7 @@ hook.Add("OnEntityCreated", "Slenderman_gentoi_noodles_pill_initialize", functio
                         ply:SetStepSize(hull.z / 4)
                         ply:SetViewOffset(camOffset)
                         ply:SetViewOffsetDucked(camOffset - Vector(0, 0, duckBy*0.15) )
-                        local speed = self.formTable.moveSpeed or {}
-                        ply:SetWalkSpeed(speed.walk or 200)
-                        ply:SetRunSpeed(speed.run or speed.walk or 500)
+                        self:ApplyMoveSpeed()
                     end
 
                     local firsttime = false
@@ -99,13 +97,10 @@ hook.Add("OnEntityCreated", "Slenderman_gentoi_noodles_pill_initialize", functio
 
 
                             if self.animFreeze and not self.plyFrozen then
-                                ply:SetWalkSpeed(ply:GetWalkSpeed() / 2)
-                                ply:SetRunSpeed(ply:GetWalkSpeed() / 2)
+                                self:ApplyMoveSpeed()
                                 self.plyFrozen = true
                             elseif not self.animFreeze and self.plyFrozen then
-                                local speed = self.formTable.moveSpeed or {}
-                                ply:SetWalkSpeed(speed.walk or 200)
-                                ply:SetRunSpeed(speed.run or speed.walk or 500)
+                                self:ApplyMoveSpeed()
                                 self.plyFrozen = nil
                             end
 
@@ -656,6 +651,13 @@ local function racheljackietien_jumpscare(ply, ent, duration, customanimstuff)
                     break
                 end
             end
+        end
+
+        if SherlockHNS and IsValid(jumpscare_entity) and jumpscare_entity:IsPlayer() then
+            return pk_pills.playHNSJumpscare(ply, ent, jumpscare_entity, duration, {
+                camera = "gentoi_Slenderman_cam",
+                onStart = customanimstuff,
+            })
         end
 
         if jumpscare_entity ~= nil then
@@ -1259,7 +1261,8 @@ pk_pills.register('PIll_slenderman_gentoi', {
                                 if IsValid(ent2) then
                                     local trace = util.TraceLine({start = origin, endpos = ent2:GetPos()+Vector(0,0,30), filter = {ent, ply}, mask = MASK_VISIBLE})
                                     if not trace.Hit then
-                                        ent2:SetNWEntity("gentoi_slenderman_host", ent)
+                                        if SERVER and SherlockHNS and ent2:IsPlayer() and not SherlockHNS.CanTarget(ent2, ply) then continue end
+                            ent2:SetNWEntity("gentoi_slenderman_host", ent)
                                         ent:SetNWEntity("gentoi_slenderman_target", ent2)
                                         ent:SetNWInt("Gentoi_slenderman_target_numb", i)
                                         ent:SetNWInt("GameTollerance_Slendermanside",15)
@@ -1603,6 +1606,7 @@ pk_pills.register('PIll_slenderman_gentoi', {
                     fly:Remove()
                     ent:SetNWFloat("Slenderman_stretch_Cooldown_afteruse_fill", CurTime() + 0.8)
                     ent:SetNWFloat("Slenderman_stretch_Cooldown", CurTime() + 15.8)
+                    pk_pills.setHNSCooldown(ent, "stretch", ent:GetNWFloat("Slenderman_stretch_Cooldown") - CurTime())
                     HandleBar_Slenderman(ent, 5)
                     ent:SetNWFloat("tenticalDur", CurTime() )
                     
@@ -1691,9 +1695,7 @@ pk_pills.register('PIll_slenderman_gentoi', {
 
                 puppet:SetColor(Color(0, 0, 0, 0))
                 ent:SetNWInt("gentoi_slenderman_Invis", CurTime()+0.3)
-                ply:SetCrouchedWalkSpeed( 900 )
-                ply:SetWalkSpeed( 900 )
-                ply:SetRunSpeed( 900 )
+                pk_pills.setCostumeMoveSpeed(ent, 900, 900, 900)
             else
                 local col = puppet:GetColor()
                 local newAlpha = col.a + changeSpeed
@@ -1705,9 +1707,7 @@ pk_pills.register('PIll_slenderman_gentoi', {
                 if not ent:GetNWBool("Decrease_bar") then
                     shouldStun = true
                 end
-                ply:SetCrouchedWalkSpeed( 45 )
-                ply:SetWalkSpeed( 45 )
-                ply:SetRunSpeed( 420 )
+                pk_pills.setCostumeMoveSpeed(ent, 45, 420, 45)
             end
             if shouldStun then
 
@@ -1733,6 +1733,7 @@ pk_pills.register('PIll_slenderman_gentoi', {
             if ent:GetNWInt("Slenderman_invis_Cooldown", CurTime()) > CurTime() then return end
 
             ent:SetNWInt("Slenderman_invis_Cooldown", CurTime() + 6.8)
+            pk_pills.setHNSCooldown(ent, "invis", ent:GetNWInt("Slenderman_invis_Cooldown") - CurTime())
             ent:SetNWInt("Slenderman_invis_Cooldown_fill", CurTime() + 0.8)
 
             if ent:GetNWInt("Slenderman_invis") == 0 then
@@ -1858,6 +1859,7 @@ pk_pills.register('PIll_slenderman_gentoi', {
                     ent:SetNWBool("Arm_tenticle_4", false)
                     ent:SetNWFloat("Slenderman_stretch_Cooldown_afteruse_fill", CurTime() + 0.8)
                     ent:SetNWFloat("Slenderman_stretch_Cooldown", CurTime() + 15.8)
+                    pk_pills.setHNSCooldown(ent, "stretch", ent:GetNWFloat("Slenderman_stretch_Cooldown") - CurTime())
                     ent:SetNWFloat("tenticalDur", CurTime() )
                     return
                 end
@@ -1941,7 +1943,7 @@ pk_pills.register('PIll_slenderman_gentoi', {
                 if alpha < 255 * 0.85 then return end
 
                 local dur = ent:GetPuppet():SequenceDuration(ent:GetPuppet():LookupSequence("kill"))
-                racheljackietien_jumpscare(
+                return racheljackietien_jumpscare(
                     ply,
                     ent,
                     dur,
@@ -1976,4 +1978,17 @@ pk_pills.register('PIll_slenderman_gentoi', {
 
 
     end
-})
+}, function(form)
+    -- The legacy damage branches are for Sandbox and NPCs.
+    form.hnsKillAPI = true
+    form.hnsAbilities = {
+        { id = "attack", name = "Ataque", key = IN_ATTACK, OnUse = form.attack.func },
+    }
+    form.attack, form.attack2, form.reload = nil, nil, nil
+    pk_pills.bindHNSButtons(form, "noodles_Slenderman_gentoi_keybinds", {
+        { id = "invis", name = "Invisibilidade", button = KEY_1, keyLabel = "1" },
+        { id = "stretch", name = "Tentáculos", button = KEY_2, keyLabel = "2" },
+        { id = "struggle", name = "Disputar controle", button = KEY_SPACE, keyLabel = "ESPAÇO" },
+        { id = "shiftlock", name = "Travar corrida", button = KEY_R, keyLabel = "R" },
+    })
+end)

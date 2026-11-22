@@ -299,6 +299,7 @@ if CLIENT then
     end)
 
     hook.Add("HUDPaint", "gent_slenderman_hudpaint", function()
+        if SherlockHNS then return end
         local ply = LocalPlayer()
         local pillentity = LocalPlayer().pk_pill_ent
 
