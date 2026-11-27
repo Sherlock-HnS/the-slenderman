@@ -93,7 +93,8 @@ if CLIENT then
         if not IsValid(ply) then return end
         local vm = ply:GetViewModel()
         if not IsValid(vm) then return end
-        local ent = ply.pk_pill_ent:GetPuppet()
+        local pe = ply.pk_pill_ent
+        if not IsValid(pe) then return end
 
         vm:SetRenderMode(RENDERMODE_TRANSCOLOR)
         vm:SetColor(Color(255,255,255,255))
