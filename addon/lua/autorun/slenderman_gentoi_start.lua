@@ -21,34 +21,34 @@ if SERVER then
     util.AddNetworkString("SlenderMan_PlaySpotSound_gentoi")
 
     hook.Add("Think", "slenderman_starebarmanagement_gentoi", function()
+        local now = CurTime()
+
         for _, ply in ipairs(player.GetAll()) do
-            if !IsValid(ply) then continue end
-            if ply:GetNWFloat("ChangeAmount_slenderman_gentoi") > CurTime() then
-                if ply:GetNWFloat("Amount_slenderman_gentoi") < 100 then
-                    ply:SetNWFloat("Amount_slenderman_gentoi", ply:GetNWFloat("Amount_slenderman_gentoi")+1.5)
-                else
-                    ply:SetNWFloat("Amount_slenderman_gentoi", 100)
-                end
-            else
-                if ply:GetNWFloat("Amount_slenderman_gentoi") > 0 then
-                    ply:SetNWFloat("Amount_slenderman_gentoi", ply:GetNWFloat("Amount_slenderman_gentoi")-3)
-                else
-                    ply:SetNWFloat("Amount_slenderman_gentoi", 0)
-                end
+            if not IsValid(ply) then continue end
+
+            local changeAmount = ply:GetNWFloat("ChangeAmount_slenderman_gentoi")
+            local amount = ply:GetNWFloat("Amount_slenderman_gentoi")
+            local ambianceChangeAmount = ply:GetNWFloat("ambianceAmount_slenderman_gentoi")
+            local ambientAmount = ply:GetNWFloat("AmbientAmount_slenderman_gentoi")
+
+            if amount == 0 and ambientAmount == 0
+                and changeAmount < now and ambianceChangeAmount < now then
+                continue
             end
-            if ply:GetNWFloat("ambianceAmount_slenderman_gentoi") > CurTime() then
-                if ply:GetNWFloat("AmbientAmount_slenderman_gentoi") < 65 then
-                    ply:SetNWFloat("AmbientAmount_slenderman_gentoi", ply:GetNWFloat("AmbientAmount_slenderman_gentoi")+1.5)
-                else
-                    ply:SetNWFloat("AmbientAmount_slenderman_gentoi", 65)
-                end
+
+            if changeAmount > now then
+                if amount < 100 then amount = amount + 1.5 else amount = 100 end
             else
-                if ply:GetNWFloat("AmbientAmount_slenderman_gentoi") > 0 then
-                    ply:SetNWFloat("AmbientAmount_slenderman_gentoi", ply:GetNWFloat("AmbientAmount_slenderman_gentoi")-3)
-                else
-                    ply:SetNWFloat("AmbientAmount_slenderman_gentoi", 0)
-                end
+                if amount > 0 then amount = amount - 3 else amount = 0 end
             end
+            ply:SetNWFloat("Amount_slenderman_gentoi", amount)
+
+            if ambianceChangeAmount > now then
+                if ambientAmount < 65 then ambientAmount = ambientAmount + 1.5 else ambientAmount = 65 end
+            else
+                if ambientAmount > 0 then ambientAmount = ambientAmount - 3 else ambientAmount = 0 end
+            end
+            ply:SetNWFloat("AmbientAmount_slenderman_gentoi", ambientAmount)
         end
     end)
 end
@@ -222,7 +222,7 @@ if CLIENT then
 
         if factor <= 0 then return end
 
-        if not pp_videoglitch:GetBool() then
+        if not pp_videoglitch:GetBool() and not mat_videoglitch:IsError() then
             render.UpdateScreenEffectTexture()
             mat_videoglitch:SetTexture("$basetexture", render.GetScreenEffectTexture())
             mat_videoglitch:SetFloat("$c0_y", factor * 0.6)
@@ -231,7 +231,7 @@ if CLIENT then
             render.DrawScreenQuad()
         end
 
-        if not pp_filmgrain:GetBool() then
+        if not pp_filmgrain:GetBool() and not mat_Filmgrain:IsError() then
             render.UpdateScreenEffectTexture()
 
             mat_Filmgrain:SetInt("$c0_y", 3)
@@ -572,85 +572,33 @@ if CLIENT then
     local storedmats = {
         [0] = Material("gentoi_slendermanicon/fadeoutaz.png")
     }
+    local savedCalcView = {}
+    local function RestoreCalcView()
+        for id, fn in pairs(savedCalcView) do
+            hook.Add("CalcView", id, fn)
+        end
+        savedCalcView = {}
+    end
+
     net.Receive("slenderman_viewport_hands", function()
         local ply = LocalPlayer()
         local ent = net.ReadEntity()
-
-        local hookID = "SlenderViewport2D_" .. ply:Nick()
-        local hookID2 = "SlenderViewport_" .. ply:Nick()
 
         timer.Simple(0,function()
             if !IsValid(ent) then return end
             local mdl
             local idle
 
-            hook.Add("PreRender", "slenderman_bright".. ply:UserID(), function()
-                if !IsValid(ent) then
-                    hook.Remove("PreRender", "slenderman_bright".. ply:UserID())
-                    render.SetLightingMode(1)
-                    return
-                end
+            local name5 = "slenderman_remove".. ply:Nick()
+            local name6 = "momo_calcview_slender".. ply:Nick()
 
-                local puppet = ent:GetPuppet()
-                if !IsValid(puppet) then return end
-
-                local alpha = ent:GetNWInt("newAlpha_gentoi_slenderman")
-
-                if alpha > 255 * 0.5 then 
-                    render.SetLightingMode(0)
-                else
-                    render.SetLightingMode(1)
-                end
-            end)
-
-            hook.Add("PostRender", "slenderman_bright".. ply:UserID(), function()
-                if !IsValid(ent) then
-                    hook.Remove("PostRender", "slenderman_bright".. ply:UserID())
-                    render.SetLightingMode(0)
-                    return
-                end
-
-                local puppet = ent:GetPuppet()
-                if !IsValid(puppet) then return end
-
-                local alpha = ent:GetNWInt("newAlpha_gentoi_slenderman")
-
-                if alpha > 255 * 0.5 then 
-                    render.SetLightingMode(1)
-                else
-                    render.SetLightingMode(0)
-                end
-            end)
-            hook.Add("PreDrawHUD", "slenderman_bright".. ply:UserID(), function()
-                if !IsValid(ent) then
-                    hook.Remove("PreDrawHUD", "slenderman_bright".. ply:UserID())
-                    render.SetLightingMode(0)
-                    return
-                end
-
-                local puppet = ent:GetPuppet()
-                if !IsValid(puppet) then return end
-
-                local alpha = ent:GetNWInt("newAlpha_gentoi_slenderman")
-
-                if alpha > 255 * 0.5 then 
-                    render.SetLightingMode(0)
-                else
-                    render.SetLightingMode(0)
-                end
-            end)
-
-            local savedCalcViewHooks = {}
-
-            local calcViewHooks = hook.GetTable().CalcView or {}
-            for k, v in pairs(calcViewHooks) do
-                if k ~= hookID then
-                    savedCalcViewHooks[k] = v
+            RestoreCalcView()
+            for k, v in pairs(hook.GetTable().CalcView or {}) do
+                if k ~= name6 then
+                    savedCalcView[k] = v
                     hook.Remove("CalcView", k)
                 end
             end
-
-            local name5 = "slenderman_remove".. ply:Nick()
 
             hook.Add( "PreDrawHalos", name5, function()
                 local ply = LocalPlayer()
@@ -740,19 +688,16 @@ if CLIENT then
 
             hook.Add("EntityRemoved", name5, function(removedent)
                 if removedent == ent then
-                    hook.Remove('CalcView', hookID)
+                    hook.Remove("CalcView", name6)
                     hook.Remove("EntityRemoved", name5)
                     hook.Remove("PreDrawHalos", name5)
                     --hook.Remove("PostDrawTranslucentRenderables", name5)
-                    for savedID, func in pairs(savedCalcViewHooks) do
-                        hook.Add("CalcView", savedID, func)
-                    end
-                    savedCalcViewHooks = {}
+                    render.SetLightingMode(0)
+                    RestoreCalcView()
                 end
             end)
 
 
-            local name6 = "momo_calcview_slender".. ply:Nick()
             hook.Add("CalcView", name6, function(ply, pos, ang, fov)
                 if !IsValid(ent) then
                     hook.Remove("CalcView", name6)
