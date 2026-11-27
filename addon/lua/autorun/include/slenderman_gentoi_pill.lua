@@ -729,35 +729,37 @@ local function tracefuntion(pilluser, nearbycharacters,functionth)
     if SERVER then
         local intir = 0
         local enttable = {}
-        local allEntities = table.Add(player.GetAll(), ents.GetAll())
-        for k, v in ipairs(allEntities) do
-            if IsValid(v) then
-                local visible = pilluser:Visible(v) 
-                 if (v:IsPlayer() or v:IsNextBot() or v:IsNPC()) then
-                    if pilluser ~= v then
-                        if v:IsPlayer() and v:Team() == TEAM_SPECTATOR then continue end
+        local list = SherlockHNS and player.GetAll() or ents.GetAll()
 
-                        if v:GetClass() == "pill_puppet" then continue end
-                        if visible then
-                            if nearbycharacters then
-                                v:SetNWFloat("ambianceAmount_slenderman_gentoi", CurTime()+ 0.2)
-                                table.insert(enttable, v)
-                            else
-                                local formula = (v:EyeAngles():Forward():Dot(pilluser:EyePos() - v:EyePos()) / (pilluser:EyePos() - v:EyePos()):Length() >= 0.5)
-                                if formula then
+        for _, v in ipairs(list) do
+            if not IsValid(v) or v == pilluser then continue end
+            if not (v:IsPlayer() or v:IsNextBot() or v:IsNPC()) then continue end
 
-                                    v:SetNWFloat("ChangeAmount_slenderman_gentoi", CurTime()+ 0.2)
-                                    intir = 1 + intir
-                                    table.insert(enttable, v)
+            if v:IsPlayer() and (
+                not v:Alive()
+                or v:Team() == TEAM_SPECTATOR
+                or (SherlockHNS and type(SherlockHNS.IsBystander) == "function" and SherlockHNS.IsBystander(v))
+            ) then
+                continue
+            end
 
-                                end
-                            end
-                        end
-                    end
+            if v:GetClass() == "pill_puppet" then continue end
+            if not pilluser:Visible(v) then continue end
+
+            if nearbycharacters then
+                v:SetNWFloat("ambianceAmount_slenderman_gentoi", CurTime() + 0.2)
+                table.insert(enttable, v)
+            else
+                local formula = (v:EyeAngles():Forward():Dot(pilluser:EyePos() - v:EyePos()) / (pilluser:EyePos() - v:EyePos()):Length() >= 0.5)
+                if formula then
+                    v:SetNWFloat("ChangeAmount_slenderman_gentoi", CurTime() + 0.2)
+                    intir = 1 + intir
+                    table.insert(enttable, v)
                 end
             end
         end
-        functionth(intir,enttable)
+
+        functionth(intir, enttable)
     end
 end
 
@@ -1691,7 +1693,8 @@ pk_pills.register('PIll_slenderman_gentoi', {
 
             local changeSpeed = 400 * FrameTime()
 
-            if ent:GetNWInt("Slenderman_invis") == 0 then
+            local inv = ent:GetNWInt("Slenderman_invis") == 0
+            if inv then
                 local col = puppet:GetColor()
                 local newAlpha = col.a - changeSpeed
                 ent:SetNWInt("newAlpha_gentoi_slenderman", newAlpha)
@@ -1699,7 +1702,6 @@ pk_pills.register('PIll_slenderman_gentoi', {
 
                 puppet:SetColor(Color(0, 0, 0, 0))
                 ent:SetNWInt("gentoi_slenderman_Invis", CurTime()+0.3)
-                pk_pills.setCostumeMoveSpeed(ent, 900, 900, 900)
             else
                 local col = puppet:GetColor()
                 local newAlpha = col.a + changeSpeed
@@ -1711,8 +1713,16 @@ pk_pills.register('PIll_slenderman_gentoi', {
                 if not ent:GetNWBool("Decrease_bar") then
                     shouldStun = true
                 end
-                pk_pills.setCostumeMoveSpeed(ent, 45, 420, 45)
             end
+            if ent._slenderSpeedState ~= inv then
+                ent._slenderSpeedState = inv
+                if inv then
+                    pk_pills.setCostumeMoveSpeed(ent, 900, 900, 900)
+                else
+                    pk_pills.setCostumeMoveSpeed(ent, 45, 420, 45)
+                end
+            end
+
             if shouldStun then
 
                 ply:SetNWInt("DisablePlayerMovement_gentoi_Slenderman_stun2", CurTime()+0.1)
@@ -1936,15 +1946,15 @@ pk_pills.register('PIll_slenderman_gentoi', {
         mode = 'trigger',
         func = function(ply, ent)
             if SERVER then
-                if ent:GetNWBool("Arm_tenticle_1") then return end
-                if ent:GetNWBool("Arm_tenticle_2") then return end
-                if ent:GetNWBool("Arm_tenticle_3") then return end
-                if ent:GetNWBool("Arm_tenticle_4") then return end
-                if not ent:GetNWBool("Decrease_bar") then return end
-                if ply:GetNWInt("DisablePlayerMovement_gentoi_Slenderman_stun") > CurTime() then return end
+                if ent:GetNWBool("Arm_tenticle_1") then return false end
+                if ent:GetNWBool("Arm_tenticle_2") then return false end
+                if ent:GetNWBool("Arm_tenticle_3") then return false end
+                if ent:GetNWBool("Arm_tenticle_4") then return false end
+                if not ent:GetNWBool("Decrease_bar") then return false end
+                if ply:GetNWInt("DisablePlayerMovement_gentoi_Slenderman_stun") > CurTime() then return false end
 
                 local alpha = ent:GetPuppet():GetColor().a or 255
-                if alpha < 255 * 0.85 then return end
+                if alpha < 255 * 0.85 then return false end
 
                 local dur = ent:GetPuppet():SequenceDuration(ent:GetPuppet():LookupSequence("kill"))
                 return racheljackietien_jumpscare(
